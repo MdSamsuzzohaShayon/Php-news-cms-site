@@ -25,10 +25,10 @@ if (isset($_POST['save'])) {
     if (mysqli_num_rows($result) > 0) {
         echo "<p style='color:red;text-align:center;margin: 10px 0'> Username already exist</p>";
     } else {
-        echo "saving <br>";
         $sql1 = "INSERT INTO user (first_name, last_name, username, password, role) VALUES ('$fname', '$lname', '$user','$password', '$role' )";
         if (mysqli_query($conn, $sql1)) {
-            header("Location: users.php");
+            header("Location: {$hostname}/admin/users.php");
+            // header("Location: users.php");
         }
     }
 }
