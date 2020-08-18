@@ -19,11 +19,25 @@
                     $page = 1;
                 }
                 $offset = ($page - 1) * $limit;
-                // SHOW DATA IN DECENDING ORDER 
-                $sql = "SELECT post.post_id, post.title, post.description, post.category, post.post_date, category.category_name, user.username FROM post 
-                LEFT JOIN category ON post.category=category.category_id
-                LEFT JOIN user ON post.author=user.user_id
-                ORDER BY post.post_id DESC LIMIT {$offset}, {$limit}";
+
+                include "header.php";
+                if ($_SESSION['user_role'] == '1') {
+                    // SHOW DATA IN DECENDING ORDER 
+                    $sql = "SELECT post.post_id, post.title, post.description, post.category, post.post_date, category.category_name, user.username FROM post 
+                            LEFT JOIN category ON post.category=category.category_id
+                            LEFT JOIN user ON post.author=user.user_id
+                            ORDER BY post.post_id DESC LIMIT {$offset}, {$limit}";
+                }elseif($_SESSION['user_role'] == '0'){
+                    // SHOW DATA IN DECENDING ORDER 
+                    $sql = "SELECT post.post_id, post.title, post.description, post.category, post.post_date, category.category_name, user.username FROM post 
+                            LEFT JOIN category ON post.category=category.category_id
+                            LEFT JOIN user ON post.author=user.user_id
+                            WHERE post.author={$_SESSION['user_id']}
+                            ORDER BY post.post_id DESC LIMIT {$offset}, {$limit}";
+                }
+
+
+
 
                 $result = mysqli_query($conn, $sql) or die("Query failed");
                 // mysqli_num_rows — Gets the number of rows in a result
