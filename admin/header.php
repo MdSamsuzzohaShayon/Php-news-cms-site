@@ -1,6 +1,11 @@
 <?php
 include('config.php');
-session_start();
+// if(!isset($_SESSION)) 
+//     { 
+//         session_start(); 
+//     }
+
+session_status() === PHP_SESSION_ACTIVE ?: session_start();
 
 // $_SESSION - An associative array containing session variables available to the current script. 
 //  CHECKING IS THERE ANY USERNAME VARIABLE SET IN SESSION
