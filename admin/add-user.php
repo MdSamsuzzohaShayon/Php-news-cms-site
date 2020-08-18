@@ -21,7 +21,6 @@ if (isset($_POST['save'])) {
     
     // mysqli_query — Performs a query on the database
     $result = mysqli_query($conn, $sql) or die("Query frield");
-    print_r($result);
     
     // mysqli_num_rows — Gets the number of rows in a result
     if (mysqli_num_rows($result) > 0) {
