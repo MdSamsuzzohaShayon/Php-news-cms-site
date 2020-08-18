@@ -20,7 +20,7 @@
                 }
                 $offset = ($page - 1) * $limit;
                 // SHOW DATA IN DECENDING ORDER 
-                $sql = "SELECT * FROM post 
+                $sql = "SELECT post.post_id, post.title, post.description, post.category, post.post_date, category.category_name, user.username FROM post 
                 LEFT JOIN category ON post.category=category.category_id
                 LEFT JOIN user ON post.author=user.user_id
                 ORDER BY post.post_id DESC LIMIT {$offset}, {$limit}";
@@ -58,36 +58,49 @@
                     </table>
                 <?php
                 } else {
-                    $sql1 = "SELECT * FROM posts";
-                    $result1 = mysqli_query($conn, $sql1) or die("query field");
+                    echo "<div class='alert alert-danger'>no post found</div>";
+                }
+                $sql1 = "SELECT * FROM post";
+                $result1 = mysqli_query($conn, $sql1) or die("query field");
 
-                    if (mysqli_num_rows($result1) > 0) {
-                        $total_records = mysqli_num_rows($result1);
-                        $limit = 3;
-                        // ceil — Returns the next highest integer value by rounding up value if necessary.
-                        $total_page = ceil($total_records / $limit);
+                if (mysqli_num_rows($result1) > 0) {
+                    $total_records = mysqli_num_rows($result1);
+                    $limit = 3;
+                    // ceil — Returns the next highest integer value by rounding up value if necessary.
+                    $total_page = ceil($total_records / $limit);
 
-                        echo "<ul class='pagination admin-pagination'>";
-                        if ($page > 1) {
-                            echo "<li><a href='post.php?page=" . ($page - 1) . "'>Previous</a></li>";
-                        }
-                        for ($i = 1; $i <= $total_page; $i++) {
-                            if ($i == $page) {
-                                $active = "active";
-                            } else {
-                                $active = "";
-                            }
-                            echo "<li class='$active'><a href='post.php?page=$i'>$i</a></li>";
-                        }
-                        if ($total_page > $page) {
-                            echo "<li><a href='post.php?page=" . ($page + 1) . "'>Next</a></li>";
-                        }
-                        echo "</ul";
+                    echo "<ul class='pagination admin-pagination'>";
+                    if ($page > 1) {
+                        echo "<li><a href='post.php?page=" . ($page - 1) . "'>Previous</a></li>";
                     }
+                    for ($i = 1; $i <= $total_page; $i++) {
+                        if ($i == $page) {
+                            $active = "active";
+                        } else {
+                            $active = "";
+                        }
+                        echo "<li class='$active'><a href='post.php?page=$i'>$i</a></li>";
+                    }
+                    if ($total_page > $page) {
+                        echo "<li><a href='post.php?page=" . ($page + 1) . "'>Next</a></li>";
+                    }
+                    echo "</ul";
                 }
                 ?>
             </div>
         </div>
     </div>
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <?php include "footer.php"; ?>

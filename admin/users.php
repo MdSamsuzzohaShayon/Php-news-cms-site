@@ -64,7 +64,7 @@ if ($_SESSION['user_role'] == '0') {
                     </table>
                 <?php
                 } else {
-                    $sql1 = "SELECT * FROM user";
+                    $sql1 = "SELECT * FROM post";
                     $result1 = mysqli_query($conn, $sql1) or die("query field");
 
                     if (mysqli_num_rows($result1) > 0) {
@@ -91,6 +91,7 @@ if ($_SESSION['user_role'] == '0') {
                         echo "</ul";
                     }
                 }
+
                 ?>
                 <br>
                 <br>
