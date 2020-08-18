@@ -28,7 +28,7 @@ if ($_SESSION['user_role'] == '0') {
                 $sql = "SELECT * FROM user ORDER BY user_id DESC LIMIT $offset, $limit";
                 $result = mysqli_query($conn, $sql) or die("Query failed");
                 // mysqli_num_rows — Gets the number of rows in a result
-                if (mysqli_num_rows($result)) {
+                if (mysqli_num_rows($result) > 0) {
                 ?>
                     <table class="content-table">
                         <thead>
@@ -63,33 +63,33 @@ if ($_SESSION['user_role'] == '0') {
                         </tbody>
                     </table>
                 <?php
-                }
+                } else {
+                    $sql1 = "SELECT * FROM user";
+                    $result1 = mysqli_query($conn, $sql1) or die("query field");
 
-                $sql1 = "SELECT * FROM user";
-                $result1 = mysqli_query($conn, $sql1) or die("query field");
+                    if (mysqli_num_rows($result1) > 0) {
+                        $total_records = mysqli_num_rows($result1);
+                        $limit = 3;
+                        // ceil — Returns the next highest integer value by rounding up value if necessary.
+                        $total_page = ceil($total_records / $limit);
 
-                if (mysqli_num_rows($result1) > 0) {
-                    $total_records = mysqli_num_rows($result1);
-                    $limit = 3;
-                    // ceil — Returns the next highest integer value by rounding up value if necessary.
-                    $total_page = ceil($total_records / $limit);
-
-                    echo "<ul class='pagination admin-pagination'>";
-                    if ($page > 1) {
-                        echo "<li><a href='users.php?page=" . ($page - 1) . "'>Previous</a></li>";
-                    }
-                    for ($i = 1; $i <= $total_page; $i++) {
-                        if ($i == $page) {
-                            $active = "active";
-                        } else {
-                            $active = "";
+                        echo "<ul class='pagination admin-pagination'>";
+                        if ($page > 1) {
+                            echo "<li><a href='users.php?page=" . ($page - 1) . "'>Previous</a></li>";
                         }
-                        echo "<li class='$active'><a href='users.php?page=$i'>$i</a></li>";
+                        for ($i = 1; $i <= $total_page; $i++) {
+                            if ($i == $page) {
+                                $active = "active";
+                            } else {
+                                $active = "";
+                            }
+                            echo "<li class='$active'><a href='users.php?page=$i'>$i</a></li>";
+                        }
+                        if ($total_page > $page) {
+                            echo "<li><a href='users.php?page=" . ($page + 1) . "'>Next</a></li>";
+                        }
+                        echo "</ul";
                     }
-                    if ($total_page > $page) {
-                        echo "<li><a href='users.php?page=" . ($page + 1) . "'>Next</a></li>";
-                    }
-                    echo "</ul";
                 }
                 ?>
                 <br>
