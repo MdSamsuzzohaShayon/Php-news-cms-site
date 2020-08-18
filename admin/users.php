@@ -1,4 +1,9 @@
-<?php include "header.php"; ?>
+<?php
+include "header.php";
+if ($_SESSION['user_role'] == '0') {
+    header("location: {$hostname}/admin/post.php");
+}
+?>
 <div id="admin-content">
     <div class="container">
         <div class="row">
@@ -12,10 +17,10 @@
                 <?php
                 include("config.php");
                 $limit = 3;
-                
-                if(isset($_GET['page'])){
+
+                if (isset($_GET['page'])) {
                     $page = $_GET['page'];
-                }else{
+                } else {
                     $page = 1;
                 }
                 $offset = ($page - 1) * $limit;
@@ -70,19 +75,19 @@
                     $total_page = ceil($total_records / $limit);
 
                     echo "<ul class='pagination admin-pagination'>";
-                    if($page > 1){
-                        echo "<li><a href='users.php?page=".($page-1). "'>Previous</a></li>";
+                    if ($page > 1) {
+                        echo "<li><a href='users.php?page=" . ($page - 1) . "'>Previous</a></li>";
                     }
                     for ($i = 1; $i <= $total_page; $i++) {
-                        if($i == $page){
+                        if ($i == $page) {
                             $active = "active";
-                        }else{
+                        } else {
                             $active = "";
                         }
                         echo "<li class='$active'><a href='users.php?page=$i'>$i</a></li>";
                     }
-                    if($total_page > $page){
-                        echo "<li><a href='users.php?page=".($page+1). "'>Next</a></li>";
+                    if ($total_page > $page) {
+                        echo "<li><a href='users.php?page=" . ($page + 1) . "'>Next</a></li>";
                     }
                     echo "</ul";
                 }

@@ -1,5 +1,7 @@
 <?php include "header.php";
-
+if ($_SESSION['user_role'] == '0') {
+    header("location: {$hostname}/admin/post.php");
+}
 // isset — Determine if a variable is declared and is different than NULL
 if (isset($_POST['submit'])) {
     // CONNECTED TO DB

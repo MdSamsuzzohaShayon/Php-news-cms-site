@@ -1,3 +1,13 @@
+<?php
+include('config.php');
+session_start();
+
+// $_SESSION - An associative array containing session variables available to the current script. 
+//  CHECKING IS THERE ANY USERNAME VARIABLE SET IN SESSION
+if(isset($_SESSION['username'])){
+    header("location: {$hostname}/admin/post.php");
+}
+?>
 <!doctype html>
 <html>
 
