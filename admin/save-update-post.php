@@ -1,15 +1,16 @@
 <?php
 include("config.php");
 
-if (empty($_FILES['new-image']['name'])) {
+if (empty($_FILES['new_image']['name'])) {
     $file_name = $_POST['old_image'];
 } else {
     # code...
     $errors = array();
 
-    $file_name = $_FILES['fileToUpload']['name'];
-    $file_size = $_FILES['fileToUpload']['size'];
-    $file_tmp = $_FILES['fileToUpload']['tmp_name'];
+    $file_name = $_FILES['new_image']['name'];
+    $file_size = $_FILES['new_image']['size'];
+    $file_tmp = $_FILES['new_image']['tmp_name'];
+    $file_type = $_FILES['new_image']['type'];
     // explode — Split a string by a string
     // end — Set the internal pointer of an array to its last element
     // strtolower — Make a string lowercase
@@ -39,15 +40,19 @@ if (empty($_FILES['new-image']['name'])) {
 }
 
 
-$sql = "UPDATE post SET title={$_POST['post_title']},description={$_POST['post_desc']},category={$_POST['category']},post_img={$file_name}
+// $sql = "UPDATE post SET title={$_POST['post_title']},description={$_POST['post_desc']},category={$_POST['category']},post_img={$file_name}
+//         WHERE post_id={$_POST['post_id']}";
+
+
+$sql ="UPDATE post SET title='{$_POST["post_title"]}',description='{$_POST["post_desc"]}', category={$_POST["category"]}, post_img='{$file_name}'
         WHERE post_id={$_POST['post_id']}";
 
 print_r($sql);
 $result = mysqli_query($conn, $sql);
-print_r($result);
+// print_r($result);
 
-// if($result){
-//     header("Location: {$hostname}/admin/post.php");
-// }else{
-//     echo "<div class='alert alert-info'>Query failed..</div>";
-// }
+if($result){
+    header("Location: {$hostname}/admin/post.php");
+}else{
+    echo "<div class='alert alert-info'>Query failed..</div>";
+}
