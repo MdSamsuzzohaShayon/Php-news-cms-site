@@ -22,7 +22,7 @@
                     while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                         <!-- Form for show edit-->
-                        <form action="" method="POST" enctype="multipart/form-data" autocomplete="off">
+                        <form action="save-update-post.php" method="POST" enctype="multipart/form-data" autocomplete="off">
                             <div class="form-group">
                                 <input type="hidden" name="post_id" class="form-control" value="<?php echo $row['post_id']; ?>" placeholder="">
                             </div>
@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1"> Description</label>
-                                <textarea name="postdesc" class="form-control" required rows="5">
+                                <textarea name="post_desc" class="form-control" required rows="5">
                                 <?php echo $row['description']; ?>
                                 </textarea>
                             </div>
@@ -62,9 +62,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="">Post image</label>
-                                <input type="file" name="new-image">
+                                <input type="file" name="new_image">
                                 <img src="upload/<?php echo $row['post_img']; ?>" height="150px">
-                                <!-- <input type="hidden" name="old-image" value=""> -->
+                                <input type="hidden" name="old_image" value="<?php echo $row['post_img']; ?>">
                             </div>
                             <input type="submit" name="submit" class="btn btn-primary" value="Update" />
                         </form>

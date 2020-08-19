@@ -64,6 +64,8 @@ if ($_SESSION['user_role'] == '0') {
                     </table>
                 <?php
                 } else {
+                    echo "<h3>No Results Found.</h3>";
+                }
                     $sql1 = "SELECT * FROM post";
                     $result1 = mysqli_query($conn, $sql1) or die("query field");
 
@@ -89,7 +91,7 @@ if ($_SESSION['user_role'] == '0') {
                             echo "<li><a href='users.php?page=" . ($page + 1) . "'>Next</a></li>";
                         }
                         echo "</ul";
-                    }
+                    
                 }
 
                 ?>
