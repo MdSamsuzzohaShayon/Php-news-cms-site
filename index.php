@@ -2,6 +2,7 @@
 <div id="main-content">
     <div class="container">
         <div class="row">
+            <!-- POST START  -->
             <div class="col-md-8">
                 <!-- post-container -->
                 <div class="post-container">
@@ -29,11 +30,11 @@
                             <div class="post-content">
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <a class="post-img" href="single.php"><img src="admin/upload/<?php echo $row['post_img']; ?>" alt="" /></a>
+                                        <a class="post-img" href="single.php?id=<?php echo $row['post_id']; ?>"><img src="admin/upload/<?php echo $row['post_img']; ?>" alt="" /></a>
                                     </div>
                                     <div class="col-md-8">
                                         <div class="inner-content clearfix">
-                                            <h3><a href='single.php'><?php echo $row['title']; ?></a></h3>
+                                            <h3><a href='single.php?id=<?php echo $row['post_id']; ?>'><?php echo $row['title']; ?></a></h3>
                                             <div class="post-information">
                                                 <span>
                                                     <i class="fa fa-tags" aria-hidden="true"></i>
@@ -49,31 +50,31 @@
                                                 </span>
                                             </div>
                                             <p class="description">
-                                            <?php echo $row['description']; ?>
+                                                <?php echo substr($row['description'], 0, 100) . "...."; ?>
                                             </p>
-                                            <a class='read-more pull-right' href='single.php'>read more</a>
+                                            <a class='read-more pull-right' href='single.php?id=<?php echo $row['post_id']; ?>'>read more</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                    <?php
-                        }
-                        
-                    } else {
-                        echo "<h2 class='alert alert-info'>No record found</h2>";
-                    }
-                    ?>
 
                     <?php
+                        }
+                    }
+                    else {
+                        echo "<h2 class='alert alert-info'>No record found</h2>";
+                    }
+
                     $sql1 = "SELECT * FROM post";
                     $result1 = mysqli_query($conn, $sql1) or die("query field");
-    
+
                     if (mysqli_num_rows($result1) > 0) {
                         $total_records = mysqli_num_rows($result1);
                         $limit = 3;
                         // ceil — Returns the next highest integer value by rounding up value if necessary.
                         $total_page = ceil($total_records / $limit);
-    
+
+                        // PAGINATION START
                         echo "<ul class='pagination'>";
                         if ($page > 1) {
                             echo "<li><a href='index.php?page=" . ($page - 1) . "'>Previous</a></li>";
@@ -90,11 +91,16 @@
                             echo "<li><a href='index.php?page=" . ($page + 1) . "'>Next</a></li>";
                         }
                         echo "</ul";
+                        // PAGINATION ENDS
                     }
                     ?>
+    <ul>Pagination</ul>
 
-                </div><!-- /post-container -->
+                </div>
+                <!-- /post-container -->
             </div>
+            <!-- POST ENDS -->
+
             <?php include 'sidebar.php'; ?>
         </div>
     </div>
