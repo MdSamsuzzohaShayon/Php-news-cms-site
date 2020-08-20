@@ -19,22 +19,29 @@
                     $page = 1;
                 }
                 $offset = ($page - 1) * $limit;
+                // $sql3 = "SELECT * FROM post";
+                // $result = mysqli_query($conn, $sql3);
+                // $row = mysqli_fetch_row($result);
 
-                include "header.php";
-                if ($_SESSION['user_role'] == '1') {
+                // print_r($row);
+                // exit;
+
+
+                if ($_SESSION['user_role'] == '1') { // FOR ADMIN OR SUPER SUER
                     // SHOW DATA IN DECENDING ORDER 
-                    $sql = "SELECT post.post_id, post.title, post.description, post.category, post.post_date, category.category_name, user.username FROM post 
+                    $sql = "SELECT post.post_id, post.title, post.description, post.post_date, category.category_name, user.username, post.category FROM post  
                             LEFT JOIN category ON post.category=category.category_id
                             LEFT JOIN user ON post.author=user.user_id
                             ORDER BY post.post_id DESC LIMIT {$offset}, {$limit}";
-                }elseif($_SESSION['user_role'] == '0'){
+                } elseif ($_SESSION['user_role'] == '0') { // FOR NORMAL USERS
                     // SHOW DATA IN DECENDING ORDER 
-                    $sql = "SELECT post.post_id, post.title, post.description, post.category, post.post_date, category.category_name, user.username FROM post 
+                    $sql = "SELECT post.post_id, post.title, post.description, post.post_date, category.category_name, user.username, post.category FROM post 
                             LEFT JOIN category ON post.category=category.category_id
                             LEFT JOIN user ON post.author=user.user_id
                             WHERE post.author={$_SESSION['user_id']}
                             ORDER BY post.post_id DESC LIMIT {$offset}, {$limit}";
                 }
+
 
 
 
@@ -55,6 +62,7 @@
                         </thead>
                         <tbody>
                             <?php
+                            $serial = $offset + 1;
                             //   mysqli_fetch_assoc — Fetch a result row as an associative array
                             while ($row = mysqli_fetch_assoc($result)) {
                             ?>
@@ -64,10 +72,12 @@
                                     <td><?php echo $row['category_name']; ?></td>
                                     <td><?php echo $row['post_date']; ?></td>
                                     <td><?php echo $row['username']; ?></td>
-                                    <td class='edit'><a href='update-post.php?id=<?php echo $row["post_id"] ?>'><i class='fa fa-edit'></i></a></td>
-                                    <td class='delete'><a href='delete-post.php?id=<?php echo $row["post_id"] ?>'><i class='fa fa-trash-o'></i></a></td>
+                                    <td class='edit'><a href='update-post.php?id=<?php echo $row['post_id']; ?>'><i class='fa fa-edit'></i></a></td>
+                                    <td class='delete'><a href='delete-post.php?id=<?php echo $row['post_id']; ?>&catid=<?php echo $row['category']; ?>'><i class='fa fa-trash-o'></i></a></td>
                                 </tr>
-                            <?php } ?>
+                            <?php
+                                $serial++;
+                            } ?>
                         </tbody>
                     </table>
                 <?php

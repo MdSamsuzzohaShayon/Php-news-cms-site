@@ -42,12 +42,14 @@ if (empty($_FILES['new_image']['name'])) {
 
 // $sql = "UPDATE post SET title={$_POST['post_title']},description={$_POST['post_desc']},category={$_POST['category']},post_img={$file_name}
 //         WHERE post_id={$_POST['post_id']}";
+$title = mysqli_real_escape_string($conn, $_POST['post_title']);
+$description = mysqli_real_escape_string($conn, $_POST['post_desc']);
+$category = mysqli_real_escape_string($conn, $_POST['category']);
 
-
-$sql ="UPDATE post SET title='{$_POST["post_title"]}',description='{$_POST["post_desc"]}', category={$_POST["category"]}, post_img='{$file_name}'
+$sql ="UPDATE post SET title='{$title}',description='{$description}', category={$category}, post_img='{$file_name}'
         WHERE post_id={$_POST['post_id']}";
 
-print_r($sql);
+// print_r($sql);
 $result = mysqli_query($conn, $sql);
 // print_r($result);
 
@@ -56,3 +58,26 @@ if($result){
 }else{
     echo "<div class='alert alert-info'>Query failed..</div>";
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
