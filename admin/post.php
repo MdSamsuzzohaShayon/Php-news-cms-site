@@ -84,6 +84,8 @@
                 } else {
                     echo "<div class='alert alert-danger'>no post found</div>";
                 }
+
+                // PAGINATION START
                 $sql1 = "SELECT * FROM post";
                 $result1 = mysqli_query($conn, $sql1) or die("query field");
 
@@ -110,6 +112,7 @@
                     }
                     echo "</ul";
                 }
+                // PAGINATION ENDS
                 ?>
             </div>
         </div>
