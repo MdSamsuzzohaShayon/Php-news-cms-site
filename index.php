@@ -38,7 +38,7 @@
                                             <div class="post-information">
                                                 <span>
                                                     <i class="fa fa-tags" aria-hidden="true"></i>
-                                                    <a href='category.php'><?php echo $row['category_name']; ?></a>
+                                                    <a href='category.php?cid=<?php echo $row['category']; ?>'><?php echo $row['category_name']; ?></a>
                                                 </span>
                                                 <span>
                                                     <i class="fa fa-user" aria-hidden="true"></i>
@@ -60,8 +60,7 @@
 
                     <?php
                         }
-                    }
-                    else {
+                    } else {
                         echo "<h2 class='alert alert-info'>No record found</h2>";
                     }
 
@@ -94,7 +93,7 @@
                         // PAGINATION ENDS
                     }
                     ?>
-    <ul>Pagination</ul>
+                    <ul>Pagination</ul>
 
                 </div>
                 <!-- /post-container -->
