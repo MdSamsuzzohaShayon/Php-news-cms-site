@@ -50,6 +50,7 @@
         </div>
             <?php  }} ?>
     </div>
+    
 
     <!-- /recent posts box -->
 </div>
